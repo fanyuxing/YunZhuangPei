@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="项目地点"
+                android:textColor="@color/color_333333"
+                android:textSize="16sp" />
+
+            <Spinner
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_marginLeft="4dp"
+                android:layout_weight="0.48"
+                android:background="@drawable/advisory_edittext_frame"
+                android:paddingLeft="10dp"
+                android:popupBackground="@android:color/white"
+                android:spinnerMode="dropdown" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="0.04" />
+
+            <Spinner
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_marginLeft="4dp"
+                android:layout_weight="0.48"
+                android:background="@drawable/advisory_edittext_frame"
+                android:paddingLeft="10dp"
+                android:popupBackground="@android:color/white"
+                android:spinnerMode="dropdown" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="项目名称"
+                android:textColor="@color/color_333333"
+                android:textSize="16sp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_marginLeft="4dp"
+                android:background="@drawable/advisory_edittext_frame"
+                android:hint="必填项"
+                android:paddingLeft="10dp"
+                android:textColor="@color/color_cccccc"
+                android:textSize="16sp"
+                android:textCursorDrawable="@null"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="问题分类"
+                android:textColor="@color/color_333333"
+                android:textSize="16sp" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_marginLeft="4dp"
+                android:background="@drawable/advisory_edittext_frame"
+                android:paddingLeft="10dp"
+                android:popupBackground="@android:color/white"
+                android:spinnerMode="dropdown" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="问题部位"
+                android:textColor="@color/color_333333"
+                android:textSize="16sp" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_marginLeft="4dp"
+                android:background="@drawable/advisory_edittext_frame"
+                android:paddingLeft="10dp"
+                android:popupBackground="@android:color/white"
+                android:spinnerMode="dropdown" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="问题描述"
+                android:textColor="@color/color_333333"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1dp"
+                android:layout_marginTop="4dp"
+                android:text="(请详细描述项目现状和问题，越详细越好，便于专家更准确地为您分析解答)"
+                android:textColor="@color/color_999999"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            android:textColor="@color/color_cccccc"
+            android:textSize="16sp"
+            android:minLines="1"
+            android:maxLines="15"
+            android:inputType="textMultiLine"
+            android:gravity="left|top"
+            android:scrollbars="vertical"
+            android:background="@drawable/advisory_edittext_frame"
+            android:textCursorDrawable="@null"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="8dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="上传图片"
+                android:textSize="16sp"
+                android:textColor="@color/color_333333"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="(反映施工现场问题，辅助专家分析，"
+                android:textSize="12sp"
+                android:textColor="@color/color_999999"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="不超过5张"
+                android:textSize="12sp"
+                android:textColor="#ff0000"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=")"
+                android:textColor="@color/color_999999"
+                android:textSize="12sp"/>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="77dp"
+            android:layout_height="60dp"
+            android:src="@drawable/more_photo"
+            android:layout_marginTop="10dp"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="上传视频"
+                android:textSize="16sp"
+                android:textColor="@color/color_333333"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="(反映施工现场问题，辅助专家分析，"
+                android:textSize="12sp"
+                android:textColor="@color/color_999999"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="不超过10M"
+                android:textSize="12sp"
+                android:textColor="#ff0000"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=")"
+                android:textColor="@color/color_999999"
+                android:textSize="12sp"/>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="77dp"
+            android:layout_height="60dp"
+            android:src="@drawable/more_photo"
+            android:layout_marginTop="10dp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:text="确认提交"
+            android:textSize="14sp"
+            android:textColor="@color/color_ffffff"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/advisory_submit_style"/>
+
+
+    </LinearLayout>
+
+
+</ScrollView>

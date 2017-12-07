@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.pcassem.yunzhuangpei">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".home.activities.HomeActivity"
+            android:theme="@style/AppThemeNoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".home.activities.HomeSearchActivity"
+            android:theme="@style/AppThemeNoActionBar" />
+        <activity
+            android:name=".home.activities.AllNewsActivity"
+            android:theme="@style/AppThemeNoActionBar" />
+        <activity
+            android:name=".personal.activities.LoginActivity"
+            android:theme="@style/AppThemeNoActionBar" />
+        <activity
+            android:name=".advisory.activities.ExportAnswerActivity"
+            android:theme="@style/AppThemeNoActionBar" />
+        <activity
+            android:name=".advisory.activities.SpeedAskActivity"
+            android:theme="@style/AppThemeNoActionBar" />
+        <activity
+            android:name=".advisory.activities.SiteGuideActivity"
+            android:theme="@style/AppThemeNoActionBar" />
+        <activity
+            android:name=".advisory.activities.FindExportActivity"
+            android:theme="@style/AppThemeNoActionBar" />
+        <activity
+            android:name=".advisory.activities.ExportDetailsActivity"
+            android:theme="@style/AppThemeNoActionBar" />
+        <activity
+            android:name=".advisory.activities.SelectExportActivity"
+            android:theme="@style/AppThemeNoActionBar" />
+        <activity
+            android:name=".personal.activities.PersonalInformationActivity"
+            android:theme="@style/AppThemeNoActionBar" />
+        <activity
+            android:name=".personal.activities.HelpActivity"
+            android:theme="@style/AppThemeNoActionBar" />
+        <activity
+            android:name=".personal.activities.SystemSettingsActivity"
+            android:theme="@style/AppThemeNoActionBar" />
+        <activity
+            android:name=".personal.activities.MyAdvisoryActivity"
+            android:theme="@style/AppThemeNoActionBar" />
+        <activity
+            android:name=".personal.activities.MyAdvisoryDetailsActivity"
+            android:theme="@style/AppThemeNoActionBar" />
+        <activity
+            android:name=".personal.activities.MyProjectActivity"
+            android:theme="@style/AppThemeNoActionBar" />
+        <activity
+            android:name=".personal.activities.MyDownloadActivity"
+            android:theme="@style/AppThemeNoActionBar" />
+        <activity
+            android:name=".personal.activities.MyTrainingActivity"
+            android:theme="@style/AppThemeNoActionBar" />
+        <activity
+            android:name=".personal.activities.MyCollectionActivity"
+            android:theme="@style/AppThemeNoActionBar" />
+        <activity
+            android:name=".training.activities.StandardActivity"
+            android:theme="@style/AppThemeNoActionBar" />
+        <activity
+            android:name=".training.activities.ProblemSolvingActivity"
+            android:theme="@style/AppThemeNoActionBar" />
+        <activity
+            android:name=".training.activities.ProjectCasesActivity"
+            android:theme="@style/AppThemeNoActionBar" />
+        <activity
+            android:name=".training.activities.TrainingCoursesActivity"
+            android:theme="@style/AppThemeNoActionBar" />
+        <activity
+            android:name=".training.activities.CourseDetailsActivity"
+            android:theme="@style/AppThemeNoActionBar" />
+        <activity
+            android:name=".home.activities.NewsDetailsActivity"
+            android:theme="@style/AppThemeNoActionBar" />
+        <activity
+            android:name=".personal.activities.ForgetPasswordActivity"
+            android:theme="@style/AppThemeNoActionBar" />
+        <activity
+            android:name=".personal.activities.ModifyPasswordActivity"
+            android:theme="@style/AppThemeNoActionBar" />
+        <activity
+            android:name=".training.activities.ProcessActivity"
+            android:theme="@style/AppThemeNoActionBar" />
+        <activity
+            android:name=".home.activities.CommentActivity"
+            android:theme="@style/AppThemeNoActionBar"></activity>
+    </application>
+
+</manifest>

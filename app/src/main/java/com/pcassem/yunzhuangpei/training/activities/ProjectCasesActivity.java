@@ -29,7 +29,6 @@ public class ProjectCasesActivity extends ActionBarActivity implements View.OnCl
     private List<Fragment> list;
     private TabFragmentPagerAdapter adapter;
 
-    private ImageView backIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +42,6 @@ public class ProjectCasesActivity extends ActionBarActivity implements View.OnCl
         myViewPager.setOnPageChangeListener(new MyPagerChangeListener());
 
         list = new ArrayList<>();
-        list.add(new ProjectCasesFragment());
         list.add(new ProjectCasesFragment());
         list.add(new ProjectCasesFragment());
         adapter = new TabFragmentPagerAdapter(getSupportFragmentManager(), list);
@@ -61,19 +59,14 @@ public class ProjectCasesActivity extends ActionBarActivity implements View.OnCl
 
         myViewPager = (ViewPager) findViewById(R.id.myViewPager);
 
-        backIv = (ImageView) findViewById(R.id.back_iv);
     }
 
     private void initTouchEvent(){
-        backIv.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.back_iv:
-                onBackPressed();
-                break;
             case R.id.tv_item_one:
                 myViewPager.setCurrentItem(0);
                 checkedStatus(tv_item_one,tv_one_underline);

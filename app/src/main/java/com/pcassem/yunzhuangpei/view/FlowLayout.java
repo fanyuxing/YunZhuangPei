@@ -1,11 +1,15 @@
 package com.pcassem.yunzhuangpei.view;
 
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Build;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,7 +23,6 @@ public class FlowLayout extends ViewGroup {
     public interface OnItemClickListener {
         public void OnItemClick(int position);
     }
-
 
     public FlowLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -107,6 +110,7 @@ public class FlowLayout extends ViewGroup {
      */
     private List<Integer> mLineHeight = new ArrayList<Integer>();
 
+
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         mAllViews.clear();
@@ -114,7 +118,7 @@ public class FlowLayout extends ViewGroup {
 
         // 当前ViewGroup的宽度
         int width = getWidth();
-
+        Log.d("11111111", "onLayout: "+width);
         int lineWidth = 0;
         int lineHeight = 0;
 
@@ -125,8 +129,7 @@ public class FlowLayout extends ViewGroup {
 
         for (int i = 0; i < cCount; i++) {
             View child = getChildAt(i);
-            MarginLayoutParams lp = (MarginLayoutParams) child
-                    .getLayoutParams();
+            MarginLayoutParams lp = (MarginLayoutParams) child.getLayoutParams();
 
             int childWidth = child.getMeasuredWidth();
             int childHeight = child.getMeasuredHeight();
@@ -191,7 +194,6 @@ public class FlowLayout extends ViewGroup {
             left = getPaddingLeft();
             top += lineHeight;
         }
-
     }
 
     /**

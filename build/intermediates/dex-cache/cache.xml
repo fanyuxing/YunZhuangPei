@@ -3,21 +3,21 @@
 
     <item
         is-multidex="true"
-        jar="/Users/zhangqi/MyDocument/Projects/GitHubRepertory/YunZhuangPei/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jar="/Users/zhangqi/MyDocument/Projects/YunZhuangPei/YunZhuangPei/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="26.0.2"
-        sha1="70f4ada8255c2a9db137368d62ffb8f61523eb03">
-        <dex dex="/Users/zhangqi/MyDocument/Projects/GitHubRepertory/YunZhuangPei/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_0570318116a4b7ff1b5cd1fcdbc499e123b70852/classes.dex" />
+        sha1="1fb6a64030b5542322e7b53ab2c090d34ef41b9f">
+        <dex dex="/Users/zhangqi/MyDocument/Projects/YunZhuangPei/YunZhuangPei/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_56d493fae6df9ab97b7699d3c2e00398a26a1123/classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="/Users/zhangqi/MyDocument/Projects/GitHubRepertory/YunZhuangPei/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jar="/Users/zhangqi/MyDocument/Projects/YunZhuangPei/YunZhuangPei/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
         jumboMode="true"
         optimize="true"
         revision="26.0.2"
         sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
-        <dex dex="/Users/zhangqi/MyDocument/Projects/GitHubRepertory/YunZhuangPei/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_a24312e8b53c37d6491cd3b7e1eab7f096073c83/classes.dex" />
+        <dex dex="/Users/zhangqi/MyDocument/Projects/YunZhuangPei/YunZhuangPei/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_d9ef585a819d8906e087a94650df98a023f99a5f/classes.dex" />
     </item>
 
 </items>

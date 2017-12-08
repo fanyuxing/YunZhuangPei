@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.Scroller;
 
+import com.pcassem.yunzhuangpei.training.activities.StandardActivity;
 import com.pcassem.yunzhuangpei.training.activities.TrainingCoursesActivity;
 
 import java.util.LinkedList;
@@ -55,7 +56,7 @@ public class HorizontalListView extends AdapterView<ListAdapter> {
         mOnItemSelected = listener;
     }
 
-    public void setOnItemClickListener(TrainingCoursesActivity listener) {
+    public void setOnItemClickListener(OnItemClickListener listener) {
         mOnItemClicked = listener;
     }
 

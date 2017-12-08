@@ -15,11 +15,10 @@
         android:layout_marginRight="14dp">
 
         <ImageView
-            android:id="@+id/back_iv"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/training_more_highlight" />
+            android:src="@drawable/training_more" />
 
         <EditText
             android:layout_width="match_parent"

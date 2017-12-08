@@ -4,22 +4,23 @@
     android:layout_height="28dp" >
     <LinearLayout
         android:id="@+id/linear_layout"
-        android:layout_width="60dp"
+        android:layout_width="wrap_content"
         android:layout_height="28dp"
         android:orientation="vertical"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:layout_marginLeft="14dp">
         <TextView
             android:id="@+id/text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="国家标准"
+            android:text=""
             android:textSize="12sp"
             android:textColor="@color/color_999999" />
         <TextView
             android:id="@+id/underline_view"
             android:layout_width="wrap_content"
             android:layout_height="1dp"
-            android:text="国家标准"
+            android:text=""
             android:textSize="12sp"
             android:background="@color/color_13386d"/>
     </LinearLayout>

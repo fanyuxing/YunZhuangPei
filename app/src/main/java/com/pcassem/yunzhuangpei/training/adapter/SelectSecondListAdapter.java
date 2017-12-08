@@ -1,7 +1,6 @@
 package com.pcassem.yunzhuangpei.training.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +19,10 @@ public class SelectSecondListAdapter extends BaseAdapter {
     LayoutInflater inflater;
     String[] standard;
     private int selectedPosition = -1;
+
+    public void setStandard(String[] standard) {
+        this.standard = standard;
+    }
 
     public SelectSecondListAdapter(Context context, String[] standard) {
         this.context = context;
@@ -46,9 +49,8 @@ public class SelectSecondListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.item_select_second_list, null);
+            convertView = inflater.inflate(R.layout.item_second_select_list, null);
             holder = new ViewHolder();
-            holder.linearLayout = (LinearLayout) convertView.findViewById(R.id.linear_layout);
             holder.textView = (TextView) convertView.findViewById(R.id.text_view);
             holder.underline = (TextView) convertView.findViewById(R.id.underline_view);
             convertView.setTag(holder);
@@ -69,7 +71,6 @@ public class SelectSecondListAdapter extends BaseAdapter {
     }
 
     public static class ViewHolder {
-        public LinearLayout linearLayout;
         public TextView textView;
         public TextView underline;
     }

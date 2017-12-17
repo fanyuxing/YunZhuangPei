@@ -74,7 +74,6 @@
             android:id="@+id/item_tv_export"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/zixun_name"
             android:text="item"
             android:textColor="@color/color_ffffff"
             android:layout_marginTop="30dp"/>

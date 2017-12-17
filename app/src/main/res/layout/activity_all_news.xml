@@ -22,21 +22,21 @@
             android:src="@drawable/icon_back_btn" />
 
         <EditText
+            android:id="@+id/search_news"
             android:layout_width="match_parent"
-            android:layout_height="36dp"
+            android:layout_height="35dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_gravity="center_vertical"
             android:background="@drawable/home_search_frame"
             android:drawableRight="@drawable/icon_search"
             android:hint="@string/enter_information_keywords"
-            android:maxLength="15"
-            android:maxLines="1"
-            android:paddingLeft="6dp"
-            android:paddingRight="6dp"
+            android:textSize="14sp"
             android:textColor="@color/color_cccccc"
             android:textCursorDrawable="@null"
-            android:textSize="14sp" />
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp"
+            android:layout_marginLeft="6dp"/>
     </LinearLayout>
 
     <View
@@ -81,4 +81,5 @@
         android:layout_height="match_parent"
         android:nestedScrollingEnabled="false"
         android:scrollbars="vertical" />
+
 </LinearLayout>

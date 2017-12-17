@@ -118,7 +118,6 @@ public class FlowLayout extends ViewGroup {
 
         // 当前ViewGroup的宽度
         int width = getWidth();
-        Log.d("11111111", "onLayout: "+width);
         int lineWidth = 0;
         int lineHeight = 0;
 
@@ -212,18 +211,41 @@ public class FlowLayout extends ViewGroup {
                 public void onClick(View v) {
                     if (onItemClickListener != null) {
                         for (int j = 0; j < getChildCount(); j++) {
-                            TextView tv = (TextView)getChildAt(j);
+                            TextView tv = (TextView) getChildAt(j);
                             tv.setBackgroundResource(R.drawable.select_tags);
                             tv.setTextColor(getResources().getColor(R.color.color_333333));
+                            tv.setTag(0);
                         }
-                        TextView tv = ((TextView)getChildAt(finalI));
-                        tv.setBackgroundResource(R.drawable.select_tags_checked);
-                        tv.setTextColor(getResources().getColor(R.color.color_13386d));
+                        TextView tv = ((TextView) getChildAt(finalI));
+//                        if (tv.getTag() == 0){
+                            tv.setBackgroundResource(R.drawable.select_tags_checked);
+                            tv.setTextColor(getResources().getColor(R.color.color_13386d));
+//
                         onItemClickListener.OnItemClick(finalI);
                     }
                 }
             });
         }
     }
+
+
+//    public void setOnItemClickClick1() {
+//        for (int i = 0; i < getChildCount(); i++) {
+//            final int finalI = i;
+//            getChildAt(i).setOnClickListener(new OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    for (int j = 0; j < getChildCount(); j++) {
+//                        TextView tv = (TextView) getChildAt(j);
+//                        tv.setBackgroundResource(R.drawable.select_tags);
+//                        tv.setTextColor(getResources().getColor(R.color.color_333333));
+//                    }
+//                    TextView tv = ((TextView) getChildAt(finalI));
+//                    tv.setBackgroundResource(R.drawable.select_tags_checked);
+//                    tv.setTextColor(getResources().getColor(R.color.color_13386d));
+//                }
+//            });
+//        }
+//    }
 
 }

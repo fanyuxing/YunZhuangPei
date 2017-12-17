@@ -1,5 +1,6 @@
 package com.pcassem.yunzhuangpei.home.activities;
 
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
@@ -25,6 +26,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private HomeFragment mHomeFragment;
     private ForumFragment mForumFragment;
     private PersonalFragment mPersonalFragment;
+
+    private Fragment currentFragment = new Fragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +60,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         resetTabState();
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.home_advisory:
                 setTabState(mTVAdvisory, R.drawable.btm_nav_advisory_selected, getTextColor(R.color.color_13386d));
                 switchFragment(0);
@@ -82,41 +85,52 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void switchFragment(int i) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
         switch (i) {
             case 0:
                 if (mAdvisoryFragment == null)
                     mAdvisoryFragment = mAdvisoryFragment.newInstance();
 
-                transaction.replace(R.id.home_content, mAdvisoryFragment);
+                showFragment(mAdvisoryFragment);
                 break;
             case 1:
                 if (mTrainingFragment == null)
                     mTrainingFragment = mTrainingFragment.newInstance();
 
-                transaction.replace(R.id.home_content, mTrainingFragment);
+                showFragment(mTrainingFragment);
                 break;
             case 2:
                 if (mHomeFragment == null)
                     mHomeFragment = mHomeFragment.newInstance();
 
-                transaction.replace(R.id.home_content, mHomeFragment);
+                showFragment(mHomeFragment);
                 break;
             case 3:
                 if (mForumFragment == null)
                     mForumFragment = mForumFragment.newInstance();
 
-                transaction.replace(R.id.home_content, mForumFragment);
+                showFragment(mForumFragment);
                 break;
             case 4:
                 if (mPersonalFragment == null)
                     mPersonalFragment = mPersonalFragment.newInstance();
 
-                transaction.replace(R.id.home_content, mPersonalFragment);
+                showFragment(mPersonalFragment);
                 break;
         }
-        transaction.commit();
+    }
+
+    private void showFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        if (currentFragment != fragment) {
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.hide(currentFragment);
+            currentFragment = fragment;
+            if (!fragment.isAdded()) {
+                transaction.add(R.id.home_content, fragment).show(fragment).commit();
+            } else {
+                transaction.show(fragment).commit();
+            }
+        }
     }
 
     private void resetTabState() {

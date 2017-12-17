@@ -7,6 +7,8 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
 
+import com.google.gson.Gson;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,6 +16,9 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Observable;
 
 /**
  * Created by zhangqi on 2017/12/7.
@@ -37,50 +42,83 @@ public class JsonUtil {
         return stringBuilder.toString();
     }
 
-    public static String firstProcessString(Context context) {
+
+    public static JSONObject firstStandardString(Context context) {
         try {
             JSONObject object = new JSONObject(getJson("select.json", context));
-            JSONObject object1 = (JSONObject) object.getJSONArray("nexts").get(0);
-            return object1.toString();
+            return object;
         } catch (JSONException e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public static String firstProblemAnswerString(Context context) {
+    public static JSONObject selectObject(JSONObject object, int position) {
         try {
-            JSONObject object = new JSONObject(getJson("select.json", context));
-            JSONObject object1 = (JSONObject) object.getJSONArray("nexts").get(1);
-            return object1.toString();
+            JSONObject object1 = (JSONObject) object.getJSONArray("nexts").get(position);
+            return object1;
         } catch (JSONException e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public static String firstStandardString(Context context) {
+
+    public static String[] selectOneList(JSONObject object, String str) {
+        String[] strList = null;
         try {
-            JSONObject object = new JSONObject(getJson("select.json", context));
-            JSONObject object1 = (JSONObject) object.getJSONArray("nexts").get(2);
-            return object1.toString();
+            JSONArray jsonArray = object.getJSONArray("nexts");
+            strList = new String[10];
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jb = (JSONObject) jsonArray.get(i);
+                strList[i] = jb.getString(str);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
-            return null;
         }
+        return strList;
     }
 
-    public static String secondStandardString(Context context){
-        try{
-            JSONObject object = new JSONObject(firstStandardString(context));
-            JSONObject object1 = (JSONObject) object.getJSONArray("nexts").get(0);
-            return object1.toString();
-        }catch (JSONException e){
+    public static String[][] selectTwoList(JSONObject object, String str) {
+
+        String[][] strList = new String[10][10];
+        try {
+            JSONArray jsonArray = object.getJSONArray("nexts");
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject object1 = (JSONObject) jsonArray.get(i);
+
+                JSONArray jsonArray1 = object1.getJSONArray("nexts");
+                for (int j = 0; j < jsonArray1.length(); j++) {
+                    JSONObject object2 = (JSONObject) jsonArray1.get(j);
+                    strList[i][j] = object2.getString(str);
+                }
+            }
+        } catch (JSONException e) {
             e.printStackTrace();
-            return null;
         }
+        return strList;
     }
 
-
+    public static String[][][] selectThreeList(JSONObject object, String str) {
+        String[][][] strList = new String[10][10][10];
+        try {
+            JSONArray jsonArray = object.getJSONArray("nexts");
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject object1 = (JSONObject) jsonArray.get(i);
+                JSONArray jsonArray1 = object1.getJSONArray("nexts");
+                for (int j = 0; j < jsonArray1.length(); j++) {
+                    JSONObject object2 = (JSONObject) jsonArray1.get(j);
+                    JSONArray jsonArray2 = object2.getJSONArray("nexts");
+                    for (int k = 0; k < jsonArray2.length(); k++) {
+                        JSONObject object3 = (JSONObject) jsonArray2.get(k);
+                        strList[i][j][k] = object3.getString(str);
+                    }
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return strList;
+    }
 
 }

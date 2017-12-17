@@ -240,8 +240,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp">
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="14dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -250,7 +250,7 @@
                     android:layout_marginBottom="6dp"
                     android:text="项目案例"
                     android:textColor="@color/color_13386d"
-                    android:textSize="14sp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -267,7 +267,6 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="10dp"
                     android:text="更多"
                     android:textColor="@color/color_999999"
                     android:textSize="12sp" />

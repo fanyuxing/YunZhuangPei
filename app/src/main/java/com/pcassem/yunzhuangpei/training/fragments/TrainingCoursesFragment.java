@@ -34,17 +34,17 @@ public class TrainingCoursesFragment extends Fragment implements TrainingListAda
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_training_courses, container, false);
         initView(view);
-
-        mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        mTrainingListAdapter = new TrainingListAdapter(getData());
-
-        // 设置布局管理器
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.addItemDecoration(new MyDividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        // 设置adapter
-        mRecyclerView.setAdapter(mTrainingListAdapter);
-        mTrainingListAdapter.setmOnItemClickListener(this);
+//
+//        mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+//        mTrainingListAdapter = new TrainingListAdapter(getData());
+//
+//        // 设置布局管理器
+//        mRecyclerView.setLayoutManager(mLayoutManager);
+//        mRecyclerView.addItemDecoration(new MyDividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
+//        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+//        // 设置adapter
+//        mRecyclerView.setAdapter(mTrainingListAdapter);
+//        mTrainingListAdapter.setmOnItemClickListener(this);
 
 
         return view;

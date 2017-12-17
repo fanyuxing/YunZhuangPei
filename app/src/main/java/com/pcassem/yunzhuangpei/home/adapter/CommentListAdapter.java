@@ -1,35 +1,40 @@
 package com.pcassem.yunzhuangpei.home.adapter;
 
 import android.content.Context;
-import android.text.Layout;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.pcassem.yunzhuangpei.R;
+import com.pcassem.yunzhuangpei.entity.CommentEntity;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class CommentListAdapter extends BaseAdapter {
 
     Context context;
-    List<Comment> data;
+    List<CommentEntity> commentListData;
+    CommentEntity commentEntity;
 
-    public CommentListAdapter(Context c, List<Comment> data) {
+    public CommentListAdapter(Context c, List<CommentEntity> data) {
         this.context = c;
-        this.data = data;
+        this.commentListData = data;
     }
 
     @Override
     public int getCount() {
-        return data.size();
+        return commentListData.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return data.get(i);
+        return commentListData.get(i);
     }
 
     @Override
@@ -40,39 +45,50 @@ public class CommentListAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View convertView, ViewGroup viewGroup) {
 
-            ViewHolder viewHolder;
-            // 重用convertView
-            if (convertView == null) {
-                viewHolder = new ViewHolder();
-                convertView = LayoutInflater.from(context).inflate(R.layout.item_news_comment_list, null);
-                viewHolder.comment_name = (TextView) convertView.findViewById(R.id.comment_name);
-                viewHolder.comment_content = (TextView) convertView.findViewById(R.id.comment_content);
+        ViewHolder viewHolder;
+        // 重用convertView
+        if (convertView == null) {
+            viewHolder = new ViewHolder();
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_news_comment_list, null);
+            viewHolder.userIcon = (SimpleDraweeView) convertView.findViewById(R.id.user_icon);
+            viewHolder.userName = (TextView) convertView.findViewById(R.id.user_name);
+            viewHolder.createTime = (TextView) convertView.findViewById(R.id.create_time);
+            viewHolder.content = (TextView) convertView.findViewById(R.id.content);
 
-                convertView.setTag(viewHolder);
-            } else {
-                viewHolder = (ViewHolder) convertView.getTag();
-            }
-            // 适配数据
-            viewHolder.comment_name.setText(data.get(i).getName());
-            viewHolder.comment_content.setText(data.get(i).getContent());
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
+        }
+        // 适配数据
+        commentEntity = commentListData.get(i);
+        String url = commentEntity.getUserIcon();
+        viewHolder.userIcon.setImageURI(Uri.parse(url));
+        viewHolder.userName.setText(commentEntity.getUserName());
+        viewHolder.createTime.setText(formatDate(commentEntity.getCreateTime()));
+        viewHolder.content.setText(commentEntity.getContent());
 
         return convertView;
 
     }
 
-    public void addComment(Comment comment) {
-        if (data.size() == 0){
-            data.add(0,comment);
-        }else {
-            data.add(1,comment);
-        }
+    public void addComment(CommentEntity comment) {
+        commentListData.add(comment);
         notifyDataSetChanged();
     }
 
 
     public static class ViewHolder {
-        TextView comment_name;
-        TextView comment_content;
+        SimpleDraweeView userIcon;
+        TextView userName;
+        TextView createTime;
+        TextView content;
+    }
+
+    //时间戳转换
+    public String formatDate(long timeStamp) {
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy年MM月dd日");
+        String sd = sdf.format(new Date(Long.parseLong(String.valueOf(timeStamp))));
+        return sd;
     }
 }
 

@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -21,25 +20,28 @@ import com.pcassem.yunzhuangpei.R;
 import com.pcassem.yunzhuangpei.advisory.activities.ExportAnswerActivity;
 import com.pcassem.yunzhuangpei.advisory.activities.SiteGuideActivity;
 import com.pcassem.yunzhuangpei.advisory.activities.SpeedAskActivity;
+import com.pcassem.yunzhuangpei.entity.NewsEntity;
+import com.pcassem.yunzhuangpei.entity.ResultListEntity;
+import com.pcassem.yunzhuangpei.home.view.NewsView;
 import com.pcassem.yunzhuangpei.home.activities.AllNewsActivity;
 import com.pcassem.yunzhuangpei.home.activities.HomeSearchActivity;
 import com.pcassem.yunzhuangpei.home.activities.NewsDetailsActivity;
 import com.pcassem.yunzhuangpei.home.adapter.LatestNewsAdapter;
-import com.pcassem.yunzhuangpei.training.activities.ProblemSolvingActivity;
-import com.pcassem.yunzhuangpei.training.activities.ProcessActivity;
+import com.pcassem.yunzhuangpei.home.presenter.NewsPresenter;
+import com.pcassem.yunzhuangpei.training.activities.KnowledgeActivity;
 import com.pcassem.yunzhuangpei.training.activities.TrainingCoursesActivity;
 import com.pcassem.yunzhuangpei.view.MyDividerItemDecoration;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class HomeFragment extends Fragment implements View.OnClickListener, LatestNewsAdapter.OnItemClickListener {
+public class HomeFragment extends Fragment implements View.OnClickListener,NewsView, LatestNewsAdapter.OnItemClickListener {
+
+
+    public static final String TAG = "HomeFragment";
 
     private RelativeLayout mHomeSearchBtn;
     private TextView mAllNewsJumpBtn;
-
-    private RecyclerView mRecyclerView;
-    private LatestNewsAdapter mLatestNewsAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
 
     private Button button1;
     private Button button2;
@@ -49,6 +51,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Late
     private LinearLayout button5;
     private LinearLayout button6;
 
+    private RecyclerView mRecyclerView;
+    private LatestNewsAdapter mLatestNewsAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+    private List<NewsEntity> mNewsData;
+    private NewsPresenter newsPresenter;
 
     public static HomeFragment newInstance() {
         HomeFragment homeFragment = new HomeFragment();
@@ -62,18 +69,21 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Late
         initView(view);
         initTouchEvent();
 
-        mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        mLatestNewsAdapter = new LatestNewsAdapter(getData());
-
+        mNewsData = new ArrayList<>();
         // 设置布局管理器
+        mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.addItemDecoration(new MyDividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
         // 设置adapter
-        mRecyclerView.setAdapter(mLatestNewsAdapter);
-        mLatestNewsAdapter.setmOnItemClickListener(this);
+        newsPresenter = new NewsPresenter(this);
+        newsPresenter.onCreate();
+        newsPresenter.getLatestNewsList();
+
         return view;
     }
+
 
     private void initView(View view) {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.my_recycler_view);
@@ -90,6 +100,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Late
     }
 
     private void initTouchEvent() {
+
         mHomeSearchBtn.setOnClickListener(this);
         mAllNewsJumpBtn.setOnClickListener(this);
 
@@ -101,14 +112,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Late
         button6.setOnClickListener(this);
     }
 
-    private ArrayList<String> getData() {
-        ArrayList<String> data = new ArrayList<>();
-        String temp = " item";
-        for (int i = 0; i < 20; i++) {
-            data.add(i + temp);
-        }
-        return data;
-    }
+
 
     @Override
     public void onClick(View v) {
@@ -130,11 +134,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Late
                 startActivity(intent1);
                 break;
             case R.id.button3:
-                Intent intent2 = new Intent(getActivity(), ProcessActivity.class);
+                Intent intent2 = new Intent(getActivity(), KnowledgeActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("selectId", "0");
+                intent2.putExtras(bundle);
                 startActivity(intent2);
                 break;
             case R.id.button4:
-                Intent intent3 = new Intent(getActivity(), ProblemSolvingActivity.class);
+                Intent intent3 = new Intent(getActivity(), KnowledgeActivity.class);
+                Bundle bundle1 = new Bundle();
+                bundle1.putString("selectId", "1");
+                intent3.putExtras(bundle1);
                 startActivity(intent3);
                 break;
             case R.id.button5:
@@ -152,6 +162,28 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Late
     @Override
     public void onItemClick(View view, int position) {
         Intent intent = new Intent(getActivity(), NewsDetailsActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt("newsID", position);
+        intent.putExtras(bundle);
         startActivity(intent);
+    }
+
+    @Override
+    public void onSuccess(ResultListEntity<NewsEntity> newsListEntity) {
+        mNewsData = newsListEntity.getResult();
+        if (mNewsData == null){
+            Toast.makeText(getContext(), "无数据", Toast.LENGTH_SHORT).show();
+        }
+        if (mLatestNewsAdapter == null){
+            mLatestNewsAdapter = new LatestNewsAdapter(mNewsData);
+            mRecyclerView.setAdapter(mLatestNewsAdapter);
+            mLatestNewsAdapter.setmOnItemClickListener(this);
+        }
+        mLatestNewsAdapter.setmData(mNewsData);
+    }
+
+    @Override
+    public void onError() {
+        Toast.makeText(getContext(), "网络出错", Toast.LENGTH_SHORT).show();
     }
 }

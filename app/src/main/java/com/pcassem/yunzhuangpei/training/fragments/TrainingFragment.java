@@ -15,19 +15,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pcassem.yunzhuangpei.R;
-import com.pcassem.yunzhuangpei.advisory.adapter.ExportListAdapter;
+import com.pcassem.yunzhuangpei.entity.NewsEntity;
+import com.pcassem.yunzhuangpei.entity.ResultListEntity;
 import com.pcassem.yunzhuangpei.home.activities.NewsDetailsActivity;
-import com.pcassem.yunzhuangpei.training.activities.ProblemSolvingActivity;
-import com.pcassem.yunzhuangpei.training.activities.ProcessActivity;
-import com.pcassem.yunzhuangpei.training.activities.ProjectCasesActivity;
-import com.pcassem.yunzhuangpei.training.activities.StandardActivity;
+import com.pcassem.yunzhuangpei.home.adapter.LatestNewsAdapter;
+import com.pcassem.yunzhuangpei.home.view.NewsView;
+import com.pcassem.yunzhuangpei.training.activities.KnowledgeActivity;
+import com.pcassem.yunzhuangpei.training.activities.AllProjectCasesActivity;
+import com.pcassem.yunzhuangpei.training.activities.ProjectCaseDetailsActivity;
 import com.pcassem.yunzhuangpei.training.activities.TrainingCoursesActivity;
-import com.pcassem.yunzhuangpei.training.adapter.TrainingListAdapter;
+import com.pcassem.yunzhuangpei.training.presenter.ProjectCasesPresenter;
 import com.pcassem.yunzhuangpei.view.MyDividerItemDecoration;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class TrainingFragment extends Fragment implements View.OnClickListener, TrainingListAdapter.OnItemClickListener {
+public class TrainingFragment extends Fragment implements View.OnClickListener,NewsView, LatestNewsAdapter.OnItemClickListener {
 
     private LinearLayout mJumpProcessActivity;
     private LinearLayout mJumpStandardActivity;
@@ -36,8 +39,10 @@ public class TrainingFragment extends Fragment implements View.OnClickListener, 
     private TextView mJumpMoreProjectCases;
 
     private RecyclerView mRecyclerView;
-    private TrainingListAdapter mTrainingListAdapter;
+    private LatestNewsAdapter mProjectCasesListAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private List<NewsEntity> mProjectCasesList;
+    private ProjectCasesPresenter mProjectCasesPresenter;
 
 
     public static TrainingFragment newInstance() {
@@ -53,16 +58,17 @@ public class TrainingFragment extends Fragment implements View.OnClickListener, 
         initView(view);
         initTouchEvent();
 
-        mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        mTrainingListAdapter = new TrainingListAdapter(getData());
-
+        mProjectCasesList = new ArrayList<>();
         // 设置布局管理器
+        mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.addItemDecoration(new MyDividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
         // 设置adapter
-        mRecyclerView.setAdapter(mTrainingListAdapter);
-        mTrainingListAdapter.setmOnItemClickListener(this);
+        mProjectCasesPresenter = new ProjectCasesPresenter(this);
+        mProjectCasesPresenter.onCreate();
+        mProjectCasesPresenter.getLatestProjectCasesList();
 
         return view;
     }
@@ -74,7 +80,6 @@ public class TrainingFragment extends Fragment implements View.OnClickListener, 
         mJumpProblemSolvingActivity = (LinearLayout)view.findViewById(R.id.training_problem_solving);
         mJumpTrainingCoursesActivity = (LinearLayout)view.findViewById(R.id.training_training_courses);
         mJumpMoreProjectCases = (TextView) view.findViewById(R.id.training_project_cases_more);
-
         mRecyclerView = (RecyclerView) view.findViewById(R.id.training_recycler_view);
     }
 
@@ -83,38 +88,31 @@ public class TrainingFragment extends Fragment implements View.OnClickListener, 
         mJumpStandardActivity.setOnClickListener(this);
         mJumpProblemSolvingActivity.setOnClickListener(this);
         mJumpTrainingCoursesActivity.setOnClickListener(this);
-
         mJumpMoreProjectCases.setOnClickListener(this);
-    }
-
-    private ArrayList<String> getData() {
-        ArrayList<String> data = new ArrayList<>();
-        String temp = " item";
-        for (int i = 0; i < 20; i++) {
-            data.add(i + temp);
-        }
-        return data;
-    }
-
-    @Override
-    public void onItemClick(View view, int position) {
-        Intent intent = new Intent(getActivity(), NewsDetailsActivity.class);
-        startActivity(intent);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.training_process:
-                Intent processIntent = new Intent(getActivity(), ProcessActivity.class);
+                Intent processIntent = new Intent(getActivity(), KnowledgeActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("selectId", "0");
+                processIntent.putExtras(bundle);
                 startActivity(processIntent);
                 break;
             case R.id.training_standard:
-                Intent standardIntent = new Intent(getActivity(), StandardActivity.class);
+                Intent standardIntent = new Intent(getActivity(), KnowledgeActivity.class);
+                Bundle bundle2 = new Bundle();
+                bundle2.putString("selectId", "2");
+                standardIntent.putExtras(bundle2);
                 startActivity(standardIntent);
                 break;
             case R.id.training_problem_solving:
-                Intent problemSolvingIntent = new Intent(getActivity(), ProblemSolvingActivity.class);
+                Intent problemSolvingIntent = new Intent(getActivity(), KnowledgeActivity.class);
+                Bundle bundle1 = new Bundle();
+                bundle1.putString("selectId", "1");
+                problemSolvingIntent.putExtras(bundle1);
                 startActivity(problemSolvingIntent);
                 break;
             case R.id.training_training_courses:
@@ -122,9 +120,37 @@ public class TrainingFragment extends Fragment implements View.OnClickListener, 
                 startActivity(coursesIntent);
                 break;
             case R.id.training_project_cases_more:
-                Intent projectCasesMoreIntent = new Intent(getActivity(),ProjectCasesActivity.class);
+                Intent projectCasesMoreIntent = new Intent(getActivity(),AllProjectCasesActivity.class);
                 startActivity(projectCasesMoreIntent);
                 break;
         }
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        Intent intent = new Intent(getActivity(), ProjectCaseDetailsActivity.class);
+        Bundle  bundle = new Bundle();
+        bundle.putInt("projectCaseID", position);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onSuccess(ResultListEntity<NewsEntity> projectCasesList) {
+        mProjectCasesList = projectCasesList.getResult();
+        if (mProjectCasesList == null){
+            Toast.makeText(getContext(), "无数据", Toast.LENGTH_SHORT).show();
+        }
+        if (mProjectCasesListAdapter == null){
+            mProjectCasesListAdapter = new LatestNewsAdapter(mProjectCasesList);
+            mRecyclerView.setAdapter(mProjectCasesListAdapter);
+            mProjectCasesListAdapter.setmOnItemClickListener(this);
+        }
+        mProjectCasesListAdapter.setmData(mProjectCasesList);
+    }
+
+    @Override
+    public void onError() {
+        Toast.makeText(getContext(), "网络出错", Toast.LENGTH_SHORT).show();
     }
 }

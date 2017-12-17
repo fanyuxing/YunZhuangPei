@@ -4,10 +4,10 @@
     android:layout_height="96dp"
     android:orientation="horizontal">
 
-    <ImageView
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/course_icon"
         android:layout_width="120dp"
         android:layout_height="80dp"
-        android:src="@drawable/pic_example_training"
         android:layout_marginLeft="14dp"
         android:layout_gravity="center_vertical"/>
 
@@ -20,12 +20,11 @@
         android:paddingLeft="14dp">
 
         <TextView
-            android:id="@+id/training_name"
+            android:id="@+id/course_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="装配式施工技术研讨班"
             android:textColor="@color/color_333333"
             android:textSize="14sp"
             android:layout_marginTop="2dp"/>
@@ -35,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_below="@+id/training_name"
+            android:layout_below="@+id/course_title"
             android:layout_marginTop="6dp">
             <TextView
                 android:layout_width="wrap_content"
@@ -44,9 +43,9 @@
                 android:textSize="10sp"
                 android:textColor="@color/color_999999"/>
             <TextView
+                android:id="@+id/course_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2017年11月10日"
                 android:textSize="10sp"
                 android:textColor="@color/color_999999"
                 android:layout_marginLeft="4dp"/>
@@ -65,32 +64,23 @@
                 android:textSize="10sp"
                 android:textColor="@color/color_999999"/>
             <TextView
+                android:id="@+id/course_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="长沙市"
                 android:textSize="10sp"
                 android:textColor="@color/color_999999"
                 android:layout_marginLeft="4dp"/>
         </LinearLayout>
 
         <TextView
+            android:id="@+id/course_sign_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="已报名 34人"
             android:textSize="10sp"
             android:textColor="@color/color_999999"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
             android:layout_marginRight="8dp" />
-
-        <!--example-->
-        <TextView android:id="@+id/item_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="item"
-            android:textColor="@color/color_ffffff"
-            android:layout_alignParentBottom="true"/>
-
 
     </RelativeLayout>
 </LinearLayout>

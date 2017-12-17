@@ -73,78 +73,41 @@
         android:layout_height="1px"
         android:background="@color/color_999999" />
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="36dp"
+        android:layout_height="35dp"
         android:layout_marginLeft="14dp"
-        android:layout_marginRight="14dp"
-        android:orientation="horizontal"
-        android:weightSum="1">
+        android:layout_marginRight="14dp">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="6dp"
+            android:text="全部课程"
+            android:textColor="@color/color_13386d"
+            android:textSize="14sp" />
 
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.25">
-
-            <TextView
-                android:id="@+id/tv_item_one"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:text="最新培训"
-                android:textColor="#999999"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/tv_one_underline"
-                android:layout_width="wrap_content"
-                android:layout_height="1dp"
-                android:layout_alignParentBottom="true"
-                android:background="#13386d"
-                android:text="最新培训"
-                android:textSize="16sp"
-                android:visibility="gone" />
-        </RelativeLayout>
-
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.75">
-
-            <TextView
-                android:id="@+id/tv_item_two"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:text="全部"
-                android:textColor="#999999"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/tv_two_underline"
-                android:layout_width="wrap_content"
-                android:layout_height="1dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:background="#13386d"
-                android:text="全部"
-                android:textSize="16sp"
-                android:visibility="gone" />
-        </RelativeLayout>
-
-    </LinearLayout>
+        <TextView
+            android:id="@+id/all_news_underline"
+            android:layout_width="wrap_content"
+            android:layout_height="1px"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="3dp"
+            android:background="@color/color_13386d"
+            android:text="全部课程"
+            android:textSize="15sp" />
+    </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/color_999999" />
+        android:background="@color/color_dedede" />
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/myViewPager"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/all_news_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
+        android:layout_height="match_parent"
+        android:nestedScrollingEnabled="false"
+        android:scrollbars="vertical" />
 </LinearLayout>

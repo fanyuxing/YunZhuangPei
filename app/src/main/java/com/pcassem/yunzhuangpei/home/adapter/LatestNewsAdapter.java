@@ -1,37 +1,37 @@
 package com.pcassem.yunzhuangpei.home.adapter;
 
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.pcassem.yunzhuangpei.R;
+import com.pcassem.yunzhuangpei.entity.NewsEntity;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
-/**
- * Created by zhangqi on 2017/11/16.
- */
+import java.util.Date;
+import java.util.List;
 
 public class LatestNewsAdapter extends RecyclerView.Adapter<LatestNewsAdapter.ViewHolder> implements View.OnClickListener{
 
 
-    private ArrayList<String> mData;
+    private List<NewsEntity> mData;
 
-    public void setmOnItemClickListener(OnItemClickListener mOnItemClickListener) {
-        this.mOnItemClickListener = mOnItemClickListener;
-    }
-
-    private OnItemClickListener mOnItemClickListener = null;
-
-    public static interface OnItemClickListener {
-        void onItemClick(View view,int position);
-    }
-
-    public LatestNewsAdapter(ArrayList<String> data){
+    public LatestNewsAdapter(List<NewsEntity> data){
         this.mData = data;
+    }
+
+    public void setmData(List<NewsEntity> mData) {
+        this.mData = mData;
+        this.notifyDataSetChanged();
     }
 
     @Override
@@ -47,14 +47,27 @@ public class LatestNewsAdapter extends RecyclerView.Adapter<LatestNewsAdapter.Vi
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         // 绑定数据
-        holder.mTextView.setText(mData.get(position));
-
-        holder.itemView.setTag(position);
+        String url = mData.get(position).getIcon();
+        holder.newsIcon.setImageURI(Uri.parse(url));
+        holder.newsTitle.setText(mData.get(position).getTitle());
+        holder.newsDate.setText(formatDate(mData.get(position).getDate()));
+        holder.newsReadCount.setText("阅读"+mData.get(position).getReadCount()+"次");
+        holder.itemView.setTag(mData.get(position).getId());
     }
 
     @Override
     public int getItemCount() {
         return mData == null ? 0 : mData.size();
+    }
+
+    public void setmOnItemClickListener(OnItemClickListener mOnItemClickListener) {
+        this.mOnItemClickListener = mOnItemClickListener;
+    }
+
+    private OnItemClickListener mOnItemClickListener = null;
+
+    public interface OnItemClickListener {
+        void onItemClick(View view,int position);
     }
 
     @Override
@@ -66,11 +79,24 @@ public class LatestNewsAdapter extends RecyclerView.Adapter<LatestNewsAdapter.Vi
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView mTextView;
+        SimpleDraweeView newsIcon;
+        TextView newsTitle;
+        TextView newsDate;
+        TextView newsReadCount;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            mTextView = (TextView) itemView.findViewById(R.id.item_tv);
+            newsIcon = (SimpleDraweeView) itemView.findViewById(R.id.news_icon);
+            newsTitle = (TextView) itemView.findViewById(R.id.news_title);
+            newsDate = (TextView) itemView.findViewById(R.id.news_date);
+            newsReadCount = (TextView) itemView.findViewById(R.id.news_read_count);
         }
+    }
+
+    //时间戳转换
+    public String formatDate(long timeStamp) {
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy年MM月dd日");
+        String sd = sdf.format(new Date(Long.parseLong(String.valueOf(timeStamp))));
+        return sd;
     }
 }

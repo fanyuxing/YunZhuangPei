@@ -1,26 +1,34 @@
 package com.pcassem.yunzhuangpei.advisory.adapter;
 
+import android.content.Context;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.pcassem.yunzhuangpei.R;
+import com.pcassem.yunzhuangpei.entity.ExportEntity;
 import com.pcassem.yunzhuangpei.view.FlowLayout;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by zhangqi on 2017/11/20.
  */
 
-public class ExportListAdapter extends RecyclerView.Adapter<ExportListAdapter.ViewHolder> implements View.OnClickListener{
+public class ExportListAdapter extends RecyclerView.Adapter<ExportListAdapter.ViewHolder> implements View.OnClickListener {
 
-
-    private ArrayList<String> mData;
-    private String[] mVals = new String[] { "防水", "构件安装", "开裂", "管廊施工"};
+    private Context mContext;
+    private List<ExportEntity> mData;
+    private List<String> mVals;
+    private int mIsOnline;
+    private int mIsBook;
     private LayoutInflater mInflater;
 
     public void setmOnItemClickListener(ExportListAdapter.OnItemClickListener mOnItemClickListener) {
@@ -29,12 +37,14 @@ public class ExportListAdapter extends RecyclerView.Adapter<ExportListAdapter.Vi
 
     private ExportListAdapter.OnItemClickListener mOnItemClickListener = null;
 
-    public static interface OnItemClickListener {
-        void onItemClick(View view,int position);
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
     }
 
-    public ExportListAdapter(ArrayList<String> data){
+    public ExportListAdapter(Context context, List<ExportEntity> data) {
+        mVals = new ArrayList<>();
         this.mData = data;
+        this.mContext = context;
     }
 
     @Override
@@ -43,7 +53,7 @@ public class ExportListAdapter extends RecyclerView.Adapter<ExportListAdapter.Vi
         mInflater = LayoutInflater.from(parent.getContext());
 
         // 实例化展示的view
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_advisory_export_recycler_view , parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_advisory_export_recycler_view, parent, false);
         // 实例化viewholder
         ExportListAdapter.ViewHolder viewHolder = new ExportListAdapter.ViewHolder(v);
         v.setOnClickListener(this);
@@ -53,16 +63,41 @@ public class ExportListAdapter extends RecyclerView.Adapter<ExportListAdapter.Vi
     @Override
     public void onBindViewHolder(ExportListAdapter.ViewHolder holder, int position) {
         // 绑定数据
-        holder.mTextView.setText(mData.get(position));
+        String url = mData.get(position).getIcon();
+        holder.icon.setImageURI(Uri.parse(url));
+        holder.name.setText(mData.get(position).getName());
+        holder.company.setText(mData.get(position).getCompany());
+        holder.title.setText(mData.get(position).getTitle());
+        holder.address.setText(mData.get(position).getAddress());
 
-        holder.itemView.setTag(position);
+        mIsOnline = mData.get(position).getIsOnline();
+        mIsBook = mData.get(position).getIsBook();
 
-        holder.mFlowLayout.removeAllViews();
-        for (int i = 0; i < mVals.length; i++) {
-            TextView tv = (TextView) mInflater.inflate(R.layout.item_advisory_export_tags, holder.mFlowLayout, false);
-            tv.setText(mVals[i]);
-            holder.mFlowLayout.addView(tv);
+        if (mIsOnline == 1) {
+            holder.isOnline.setBackgroundResource(R.drawable.advisory_export_accept_btn);
+            holder.isOnline.setTextColor(mContext.getResources().getColor(R.color.color_13386d));
+        } else {
+            holder.isOnline.setBackgroundResource(R.drawable.advisory_export_no_export_btn);
+            holder.isOnline.setTextColor(mContext.getResources().getColor(R.color.color_999999));
         }
+
+        if (mIsBook == 1) {
+            holder.isBook.setBackgroundResource(R.drawable.advisory_export_accept_btn);
+            holder.isBook.setTextColor(mContext.getResources().getColor(R.color.color_13386d));
+        } else {
+            holder.isBook.setBackgroundResource(R.drawable.advisory_export_no_export_btn);
+            holder.isBook.setTextColor(mContext.getResources().getColor(R.color.color_999999));
+        }
+
+        holder.domains.removeAllViews();
+        mVals = mData.get(position).getDomains();
+        for (int i = 0; i < mVals.size(); i++) {
+            TextView tv = (TextView) mInflater.inflate(R.layout.item_advisory_export_tags, holder.domains, false);
+            tv.setText(mVals.get(i));
+            holder.domains.addView(tv);
+        }
+
+        holder.itemView.setTag(mData.get(position).getId());
     }
 
     @Override
@@ -72,20 +107,36 @@ public class ExportListAdapter extends RecyclerView.Adapter<ExportListAdapter.Vi
 
     @Override
     public void onClick(View v) {
-        if (mOnItemClickListener != null){
+        if (mOnItemClickListener != null) {
             mOnItemClickListener.onItemClick(v, (Integer) v.getTag());
         }
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView mTextView;
-        FlowLayout mFlowLayout;
+        SimpleDraweeView icon;
+        TextView name;
+        TextView company;
+        TextView title;
+        TextView address;
+        TextView isOnline;
+        TextView isBook;
+        FlowLayout domains;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            mTextView = (TextView) itemView.findViewById(R.id.item_tv_export);
-            mFlowLayout = (FlowLayout) itemView.findViewById(R.id.flowlayout_export_tags);
+            icon = (SimpleDraweeView) itemView.findViewById(R.id.export_icon);
+            name = (TextView) itemView.findViewById(R.id.export_name);
+            company = (TextView) itemView.findViewById(R.id.export_company);
+            title = (TextView) itemView.findViewById(R.id.export_title);
+            address = (TextView) itemView.findViewById(R.id.export_address);
+            isOnline = (TextView) itemView.findViewById(R.id.export_is_online);
+            isBook = (TextView) itemView.findViewById(R.id.export_is_book);
+            domains = (FlowLayout) itemView.findViewById(R.id.export_domains);
         }
+    }
+
+    public void setmData(List<ExportEntity> mData) {
+        this.mData = mData;
     }
 }

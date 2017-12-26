@@ -1,23 +1,28 @@
 package com.pcassem.yunzhuangpei.home.activities;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pcassem.yunzhuangpei.R;
 import com.pcassem.yunzhuangpei.advisory.fragments.AdvisoryFragment;
+import com.pcassem.yunzhuangpei.entity.UserEntity;
 import com.pcassem.yunzhuangpei.forum.fragments.ForumFragment;
 import com.pcassem.yunzhuangpei.home.fragments.HomeFragment;
 import com.pcassem.yunzhuangpei.personal.fragments.PersonalFragment;
 import com.pcassem.yunzhuangpei.training.fragments.TrainingFragment;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
+
+    public static final String TAG = "HomeActivity";
 
     private TextView mTVAdvisory, mTVTraining, mTVForum, mTVPersonal;
     private ImageView mIVHome;
@@ -27,21 +32,36 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private ForumFragment mForumFragment;
     private PersonalFragment mPersonalFragment;
 
+    private String[] fragmentTag = new String[]{"AdvisoryFragment","TrainingFragment","HomeFragment","ForumFragment","PersonalFragment"};
     private Fragment currentFragment = new Fragment();
+    private FragmentManager manager;
+
+    private String username = "";
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        manager = getSupportFragmentManager();
+//        if (savedInstanceState != null){
+//            mAdvisoryFragment = (AdvisoryFragment) manager.findFragmentByTag(fragmentTag[0]);
+//            mTrainingFragment = (TrainingFragment) manager.findFragmentByTag(fragmentTag[1]);
+//            mHomeFragment = (HomeFragment) manager.findFragmentByTag(fragmentTag[2]);
+//            mForumFragment = (ForumFragment) manager.findFragmentByTag(fragmentTag[3]);
+//            mPersonalFragment = (PersonalFragment) manager.findFragmentByTag(fragmentTag[4]);
+//        }
         setContentView(R.layout.activity_home);
         initView();
-
-        mTVAdvisory.setOnClickListener(this);
-        mTVTraining.setOnClickListener(this);
-        mIVHome.setOnClickListener(this);
-        mTVForum.setOnClickListener(this);
-        mTVPersonal.setOnClickListener(this);
-
+        initTouchEvent();
         setDefaultFragment();
+        username = getIntent().getStringExtra("username");
     }
 
     private void initView() {
@@ -52,9 +72,28 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         mTVPersonal = (TextView) findViewById(R.id.home_personal);
     }
 
+    private void initTouchEvent(){
+        mTVAdvisory.setOnClickListener(this);
+        mTVTraining.setOnClickListener(this);
+        mIVHome.setOnClickListener(this);
+        mTVForum.setOnClickListener(this);
+        mTVPersonal.setOnClickListener(this);
+    }
+
     private void setDefaultFragment() {
         switchFragment(2);
         setTabHomeState(mIVHome, R.drawable.btm_nav_home_selected);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        mHomeFragment.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -90,43 +129,42 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 if (mAdvisoryFragment == null)
                     mAdvisoryFragment = mAdvisoryFragment.newInstance();
 
-                showFragment(mAdvisoryFragment);
+                showFragment(mAdvisoryFragment,0);
                 break;
             case 1:
                 if (mTrainingFragment == null)
                     mTrainingFragment = mTrainingFragment.newInstance();
 
-                showFragment(mTrainingFragment);
+                showFragment(mTrainingFragment,1);
                 break;
             case 2:
                 if (mHomeFragment == null)
                     mHomeFragment = mHomeFragment.newInstance();
 
-                showFragment(mHomeFragment);
+                showFragment(mHomeFragment,2);
                 break;
             case 3:
                 if (mForumFragment == null)
                     mForumFragment = mForumFragment.newInstance();
 
-                showFragment(mForumFragment);
+                showFragment(mForumFragment,3);
                 break;
             case 4:
                 if (mPersonalFragment == null)
                     mPersonalFragment = mPersonalFragment.newInstance();
 
-                showFragment(mPersonalFragment);
+                showFragment(mPersonalFragment,4);
                 break;
         }
     }
 
-    private void showFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
+    private void showFragment(Fragment fragment,int tagNum) {
+        FragmentTransaction transaction = manager.beginTransaction();
         if (currentFragment != fragment) {
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
             transaction.hide(currentFragment);
             currentFragment = fragment;
             if (!fragment.isAdded()) {
-                transaction.add(R.id.home_content, fragment).show(fragment).commit();
+                transaction.add(R.id.home_content, fragment, fragmentTag[tagNum]).show(fragment).commit();
             } else {
                 transaction.show(fragment).commit();
             }
@@ -154,4 +192,5 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private int getTextColor(int i) {
         return ContextCompat.getColor(this, i);
     }
+
 }

@@ -23,7 +23,7 @@ import com.pcassem.yunzhuangpei.view.MyDividerItemDecoration;
 
 import java.util.List;
 
-public class AllNewsActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher, LatestNewsAdapter.OnItemClickListener,NewsView {
+public class AllNewsActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher, LatestNewsAdapter.OnItemClickListener, NewsView {
 
 
     private ImageView mBackBtn;
@@ -55,13 +55,13 @@ public class AllNewsActivity extends AppCompatActivity implements View.OnClickLi
         newsPresenter.getNewsList();
     }
 
-    private void initView(){
-        mBackBtn = (ImageView) findViewById(R.id.jump_all_news_activity_back_home_activity);
+    private void initView() {
+        mBackBtn = (ImageView) findViewById(R.id.back_iv);
         mRecyclerView = (RecyclerView) findViewById(R.id.all_news_recycler_view);
         mSearchNews = (EditText) findViewById(R.id.search_news);
     }
 
-    private void initTouchEvent(){
+    private void initTouchEvent() {
         mBackBtn.setOnClickListener(this);
         mSearchNews.addTextChangedListener(this);
     }
@@ -78,8 +78,8 @@ public class AllNewsActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.jump_all_news_activity_back_home_activity:
+        switch (v.getId()) {
+            case R.id.back_iv:
                 onBackPressed();
                 break;
         }
@@ -88,10 +88,10 @@ public class AllNewsActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onSuccess(ResultListEntity<NewsEntity> newsListEntity) {
         mNewsData = newsListEntity.getResult();
-        if (mNewsData == null){
+        if (mNewsData == null) {
             Toast.makeText(this, "无数据", Toast.LENGTH_SHORT).show();
         }
-        if (mLatestNewsAdapter == null){
+        if (mLatestNewsAdapter == null) {
             mLatestNewsAdapter = new LatestNewsAdapter(mNewsData);
             mRecyclerView.setAdapter(mLatestNewsAdapter);
             mLatestNewsAdapter.setmOnItemClickListener(this);
@@ -109,10 +109,12 @@ public class AllNewsActivity extends AppCompatActivity implements View.OnClickLi
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
     }
+
     //输入文字中的状态
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
     }
+
     //输入文字后的状态
     @Override
     public void afterTextChanged(Editable s) {

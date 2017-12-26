@@ -39,11 +39,20 @@ public class RetrofitHelper {
                 .build();
     }
 
-    public HomeAPI getHomeAPI(){
-        return mRetrofit.create(HomeAPI.class);
+    public AdvisoryAPI getAdvisoryAPI(){
+        return mRetrofit.create(AdvisoryAPI.class);
     }
 
     public TrainingAPI getTrainingAPI(){
         return mRetrofit.create(TrainingAPI.class);
     }
+
+    public HomeAPI getHomeAPI(){
+        return mRetrofit.create(HomeAPI.class);
+    }
+
+    public PersonalAPI getPersonalAPI(){
+        return mRetrofit.create(PersonalAPI.class);
+    }
+
 }

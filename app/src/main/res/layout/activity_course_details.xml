@@ -100,7 +100,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
+                android:layout_height="80dp"
                 android:layout_marginLeft="14dp"
                 android:layout_marginRight="14dp"
                 android:paddingTop="10dp">
@@ -116,15 +116,16 @@
                     android:id="@+id/course_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:textColor="@color/color_666666"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:layout_marginTop="4dp"
+                    android:layout_below="@+id/course_date"/>
 
                 <TextView
                     android:id="@+id/course_sponsor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/course_date"
+                    android:layout_below="@+id/course_address"
                     android:layout_marginTop="4dp"
                     android:textColor="@color/color_666666"
                     android:textSize="14sp" />
@@ -167,11 +168,8 @@
                             android:id="@+id/course_total_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="50"
                             android:textColor="@color/color_666666"
                             android:textSize="14sp" />
-
-
                     </LinearLayout>
                 </LinearLayout>
 
@@ -181,7 +179,7 @@
                     android:layout_height="38dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/advisory_submit_style"
+                    android:background="@drawable/submit_style"
                     android:text="立即报名"
                     android:textColor="@color/color_ffffff"
                     android:textSize="14sp" />
@@ -195,7 +193,7 @@
             <WebView
                 android:id="@+id/course_content"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="6dp"
@@ -203,7 +201,7 @@
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="30dp" />
+                android:layout_height="20dp" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

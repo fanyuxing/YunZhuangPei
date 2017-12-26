@@ -34,7 +34,7 @@ public interface TrainingAPI {
     Observable<ResultListEntity<CourseEntity>> getCourseList();
 
     //培训课程详情
-    @GET("app/training/info")
+    @GET("/app/training/info")
     Observable<ResultListEntity<CourseDetailsEntity>> getCourseDetailsList(@Query("courseID") int courseID);
 
     //最新项目案例
@@ -46,7 +46,7 @@ public interface TrainingAPI {
     Observable<ResultListEntity<NewsEntity>> getAllProjectCasesList(@Query("category") String category);
 
     //搜索项目案例
-    @GET("app/project/searchList")
+    @GET("/app/project/searchList")
     Observable<ResultListEntity<NewsEntity>> getSearchProjectCasesList(@Query("category") String category, @Query("keyword") String keyword);
 
     //项目案例详情

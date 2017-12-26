@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.pcassem.yunzhuangpei.R;
 import com.pcassem.yunzhuangpei.entity.NewsEntity;
+import com.pcassem.yunzhuangpei.utils.DateUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -50,7 +51,7 @@ public class LatestNewsAdapter extends RecyclerView.Adapter<LatestNewsAdapter.Vi
         String url = mData.get(position).getIcon();
         holder.newsIcon.setImageURI(Uri.parse(url));
         holder.newsTitle.setText(mData.get(position).getTitle());
-        holder.newsDate.setText(formatDate(mData.get(position).getDate()));
+        holder.newsDate.setText(DateUtil.getStandardDate(mData.get(position).getDate()));
         holder.newsReadCount.setText("阅读"+mData.get(position).getReadCount()+"次");
         holder.itemView.setTag(mData.get(position).getId());
     }
@@ -93,10 +94,4 @@ public class LatestNewsAdapter extends RecyclerView.Adapter<LatestNewsAdapter.Vi
         }
     }
 
-    //时间戳转换
-    public String formatDate(long timeStamp) {
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyy年MM月dd日");
-        String sd = sdf.format(new Date(Long.parseLong(String.valueOf(timeStamp))));
-        return sd;
-    }
 }

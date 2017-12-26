@@ -38,7 +38,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/underline_view">
+        android:layout_below="@+id/underline_view"
+        android:layout_above="@+id/bottom_menu">
         <LinearLayout
             android:id="@+id/news_details"
             android:layout_width="match_parent"
@@ -98,7 +99,7 @@
             
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="100dp" />
+                android:layout_height="60dp" />
         </LinearLayout>
     </ScrollView>
 
@@ -182,6 +183,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:id="@+id/like"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -230,6 +232,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/collection"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"

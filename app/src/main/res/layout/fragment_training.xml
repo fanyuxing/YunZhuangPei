@@ -41,13 +41,15 @@
                         android:paddingRight="14dp"
                         android:textColor="@color/color_cccccc"
                         android:textCursorDrawable="@null"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        android:enabled="false"/>
 
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
                         android:layout_marginTop="5dp"
-                        android:src="@drawable/pic_example_training_show" />
+                        android:src="@drawable/pic_example_training_show"
+                        android:scaleType="fitXY"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -267,7 +269,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:text="更多"
+                    android:text="全部案例"
                     android:textColor="@color/color_999999"
                     android:textSize="12sp" />
             </RelativeLayout>

@@ -23,16 +23,22 @@ import com.pcassem.yunzhuangpei.advisory.activities.FindExportActivity;
 import com.pcassem.yunzhuangpei.advisory.activities.SiteGuideActivity;
 import com.pcassem.yunzhuangpei.advisory.activities.SpeedAskActivity;
 import com.pcassem.yunzhuangpei.advisory.adapter.ExportListAdapter;
+import com.pcassem.yunzhuangpei.advisory.presenter.ExportPresenter;
+import com.pcassem.yunzhuangpei.advisory.view.ExportView;
+import com.pcassem.yunzhuangpei.entity.ExportEntity;
+import com.pcassem.yunzhuangpei.entity.ResultListEntity;
 import com.pcassem.yunzhuangpei.home.adapter.LatestNewsAdapter;
 import com.pcassem.yunzhuangpei.home.fragments.HomeFragment;
+import com.pcassem.yunzhuangpei.home.presenter.NewsPresenter;
 import com.pcassem.yunzhuangpei.view.MyDividerItemDecoration;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AdvisoryFragment extends Fragment implements View.OnClickListener, ExportListAdapter.OnItemClickListener {
+public class AdvisoryFragment extends Fragment implements ExportView, View.OnClickListener, ExportListAdapter.OnItemClickListener {
 
     private LinearLayout mExportAnswer;
     private LinearLayout mSpeedAsk;
@@ -43,6 +49,9 @@ public class AdvisoryFragment extends Fragment implements View.OnClickListener, 
     private RecyclerView mRecyclerView;
     private ExportListAdapter mExportListAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+
+    private ExportPresenter mExportPresenter;
+    private List<ExportEntity> mExportList;
 
 
     public static AdvisoryFragment newInstance() {
@@ -57,17 +66,17 @@ public class AdvisoryFragment extends Fragment implements View.OnClickListener, 
         initView(view);
         initTouchEvent();
 
-        mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        mExportListAdapter = new ExportListAdapter(getData());
+        mExportList = new ArrayList<>();
 
         // 设置布局管理器
+        mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.addItemDecoration(new MyDividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        // 设置adapter
-        mRecyclerView.setAdapter(mExportListAdapter);
 
-        mExportListAdapter.setmOnItemClickListener(this);
+        mExportPresenter = new ExportPresenter(this);
+        mExportPresenter.onCreate();
+        mExportPresenter.getCommendExportList();
         return view;
     }
 
@@ -88,20 +97,16 @@ public class AdvisoryFragment extends Fragment implements View.OnClickListener, 
         mSiteGudie.setOnClickListener(this);
         mFindExport.setOnClickListener(this);
         mAllExports.setOnClickListener(this);
+
     }
 
-    private ArrayList<String> getData() {
-        ArrayList<String> data = new ArrayList<>();
-        String temp = " item";
-        for (int i = 0; i < 20; i++) {
-            data.add(i + temp);
-        }
-        return data;
-    }
 
     @Override
     public void onItemClick(View view, int position) {
         Intent intent = new Intent(getActivity(), ExportDetailsActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt("specialistID",position);
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 
@@ -109,16 +114,19 @@ public class AdvisoryFragment extends Fragment implements View.OnClickListener, 
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.advisory_export_answer:
-                Intent intent1= new Intent(getActivity(), ExportAnswerActivity.class);
-                startActivity(intent1);
+//                Intent intent1= new Intent(getActivity(), ExportAnswerActivity.class);
+//                startActivity(intent1);
+                Toast.makeText(getActivity(), "正在开发", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.advisory_speed_ask:
-                Intent intent2 = new Intent(getActivity(), SpeedAskActivity.class);
-                startActivity(intent2);
+//                Intent intent2 = new Intent(getActivity(), SpeedAskActivity.class);
+//                startActivity(intent2);
+                Toast.makeText(getActivity(), "正在开发", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.advisory_site_guide:
-                Intent intent3 = new Intent(getActivity(), SiteGuideActivity.class);
-                startActivity(intent3);
+//                Intent intent3 = new Intent(getActivity(), SiteGuideActivity.class);
+//                startActivity(intent3);
+                Toast.makeText(getActivity(), "正在开发", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.advisory_find_export:
                 Intent intent4 = new Intent(getActivity(), FindExportActivity.class);
@@ -129,5 +137,24 @@ public class AdvisoryFragment extends Fragment implements View.OnClickListener, 
                 startActivity(intent5);
                 break;
         }
+    }
+
+    @Override
+    public void onSuccess(ResultListEntity<ExportEntity> exportList) {
+        mExportList = exportList.getResult();
+        if (mExportList == null){
+            Toast.makeText(getActivity(), "无数据", Toast.LENGTH_SHORT).show();
+        }
+        if (mExportListAdapter == null){
+            mExportListAdapter = new ExportListAdapter(getActivity(),mExportList);
+            mRecyclerView.setAdapter(mExportListAdapter);
+            mExportListAdapter.setmOnItemClickListener(this);
+        }
+        mExportListAdapter.setmData(mExportList);
+    }
+
+    @Override
+    public void onError() {
+        Toast.makeText(getActivity(), "网络出错", Toast.LENGTH_SHORT).show();
     }
 }

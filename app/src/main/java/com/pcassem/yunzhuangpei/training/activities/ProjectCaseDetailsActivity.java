@@ -21,6 +21,7 @@ import com.pcassem.yunzhuangpei.entity.ResultListEntity;
 import com.pcassem.yunzhuangpei.home.activities.CommentActivity;
 import com.pcassem.yunzhuangpei.home.view.NewsDetailsView;
 import com.pcassem.yunzhuangpei.training.presenter.ProjectCaseDetailsPresenter;
+import com.pcassem.yunzhuangpei.utils.DateUtil;
 import com.pcassem.yunzhuangpei.utils.HtmlFormatUtil;
 import com.pcassem.yunzhuangpei.view.MJavascriptInterface;
 import com.pcassem.yunzhuangpei.view.MyWebViewClient;
@@ -39,6 +40,8 @@ public class ProjectCaseDetailsActivity extends AppCompatActivity implements Vie
     private EditText mCommentContent;
     private TextView mCommentSend;
     private LinearLayout mJumpCommentActivity;
+    private LinearLayout mLike;
+    private LinearLayout mCollection;
 
     private RelativeLayout mLayoutCommentMenu;
     private RelativeLayout mlayoutCommentSay;
@@ -95,6 +98,8 @@ public class ProjectCaseDetailsActivity extends AppCompatActivity implements Vie
         mContent = (WebView) findViewById(R.id.content);
         mLikeCount = (TextView) findViewById(R.id.like_count);
         mCommentCount = (TextView) findViewById(R.id.comment_count);
+        mLike = (LinearLayout) findViewById(R.id.like);
+        mCollection = (LinearLayout) findViewById(R.id.collection);
 
     }
 
@@ -104,6 +109,8 @@ public class ProjectCaseDetailsActivity extends AppCompatActivity implements Vie
         mCommentFrame.setOnClickListener(this);
         mCommentSend.setOnClickListener(this);
         mJumpCommentActivity.setOnClickListener(this);
+        mLike.setOnClickListener(this);
+        mCollection.setOnClickListener(this);
     }
 
     @Override
@@ -113,18 +120,26 @@ public class ProjectCaseDetailsActivity extends AppCompatActivity implements Vie
                 onBackPressed();
                 break;
             case R.id.comment_frame:
-                mLayoutCommentMenu.setVisibility(View.GONE);
-                mlayoutCommentSay.setVisibility(View.VISIBLE);
+//                mLayoutCommentMenu.setVisibility(View.GONE);
+//                mlayoutCommentSay.setVisibility(View.VISIBLE);
+                Toast.makeText(this, "正在开发", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.comment_send:
                 sendComment();
                 break;
             case R.id.jump_comment:
-                Intent intent = new Intent(ProjectCaseDetailsActivity.this, CommentActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("newsID","");
-                intent.putExtras(bundle);
-                startActivity(intent);
+                Toast.makeText(this, "正在开发", Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(ProjectCaseDetailsActivity.this, CommentActivity.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putString("newsID","");
+//                intent.putExtras(bundle);
+//                startActivity(intent);
+                break;
+            case R.id.like:
+                Toast.makeText(this, "正在开发", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.collection:
+                Toast.makeText(this, "正在开发", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
@@ -164,7 +179,7 @@ public class ProjectCaseDetailsActivity extends AppCompatActivity implements Vie
     public void onSuccess(ResultListEntity<NewsDetailsEntity> newsListEntity) {
         mNewsDetailsData = newsListEntity.getResult().get(0);
         mTitle.setText(mNewsDetailsData.getTitle() + "");
-        mDate.setText(formatDate(mNewsDetailsData.getDate()));
+        mDate.setText(DateUtil.getStandardDate(mNewsDetailsData.getDate()));
         mReadCount.setText("阅读" + mNewsDetailsData.getReadCount() + "次");
         mContent.loadDataWithBaseURL(null, HtmlFormatUtil.getNewContent(mNewsDetailsData.getContent()), "text/html", "utf-8", null);
         mLikeCount.setText("赞" + mNewsDetailsData.getLikeCount());
@@ -181,10 +196,4 @@ public class ProjectCaseDetailsActivity extends AppCompatActivity implements Vie
         Toast.makeText(this, "网络出错", Toast.LENGTH_SHORT).show();
     }
 
-    //时间戳转换
-    public String formatDate(long timeStamp) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日");
-        String sd = sdf.format(new Date(Long.parseLong(String.valueOf(timeStamp))));
-        return sd;
-    }
 }

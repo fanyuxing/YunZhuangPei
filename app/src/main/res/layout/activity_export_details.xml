@@ -25,7 +25,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="专家详情"
             android:textColor="@color/color_13386d"
             android:textSize="16sp" />
     </LinearLayout>
@@ -52,59 +51,48 @@
                 android:layout_marginRight="14dp"
                 android:layout_marginTop="10dp">
 
-                <ImageView
-                    android:id="@+id/export_details_head_picture"
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/icon"
                     android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/pic_example_advisory_export" />
+                    android:layout_height="100dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_toRightOf="@+id/export_details_head_picture"
+                    android:layout_toRightOf="@+id/icon"
                     android:orientation="vertical"
                     android:paddingLeft="10dp">
 
                     <TextView
-                        android:id="@+id/export_details_name"
+                        android:id="@+id/name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="宋仲基"
                         android:textColor="@color/color_13386d"
                         android:textSize="18sp" />
 
                     <TextView
-                        android:id="@+id/export_details_1"
+                        android:id="@+id/company"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="远大住工"
                         android:textColor="@color/color_666666"
                         android:textSize="12sp" />
 
                     <TextView
-                        android:id="@+id/export_details_2"
+                        android:id="@+id/title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="工程技术中心"
                         android:textColor="@color/color_666666"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        android:layout_marginTop="4dp"/>
 
                     <TextView
-                        android:id="@+id/export_details_3"
+                        android:id="@+id/address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="高级工程师"
                         android:textColor="@color/color_666666"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:id="@+id/export_details_4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="工作地点：长沙"
-                        android:textColor="@color/color_666666"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        android:layout_marginTop="4dp"/>
                 </LinearLayout>
 
             </RelativeLayout>
@@ -117,7 +105,7 @@
                 android:gravity="center_vertical">
 
                 <com.pcassem.yunzhuangpei.view.FlowLayout
-                    android:id="@+id/flowlayout_popular_tags"
+                    android:id="@+id/domains"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -172,10 +160,10 @@
                     </RelativeLayout>
 
                     <TextView
+                        android:id="@+id/answer_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="45次"
                         android:textColor="@color/color_666666"
                         android:textSize="12sp" />
                 </LinearLayout>
@@ -228,18 +216,19 @@
                     </RelativeLayout>
 
                     <TextView
+                        android:id="@+id/book_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="33次"
                         android:textColor="@color/color_666666"
                         android:textSize="12sp" />
 
                     <Button
+                        android:id="@+id/is_book"
                         android:layout_width="64dp"
                         android:layout_height="24dp"
                         android:layout_marginTop="6dp"
-                        android:background="@drawable/advisory_submit_style"
+                        android:background="@drawable/submit_style"
                         android:text="申请"
                         android:textColor="@color/color_ffffff"
                         android:textSize="12sp" />
@@ -293,18 +282,19 @@
                     </RelativeLayout>
 
                     <TextView
+                        android:id="@+id/online_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="78次"
                         android:textColor="@color/color_666666"
                         android:textSize="12sp" />
 
                     <Button
+                        android:id="@+id/is_online"
                         android:layout_width="64dp"
                         android:layout_height="24dp"
                         android:layout_marginTop="6dp"
-                        android:background="@drawable/advisory_submit_style"
+                        android:background="@drawable/submit_style"
                         android:text="申请"
                         android:textColor="@color/color_ffffff"
                         android:textSize="12sp" />
@@ -358,10 +348,10 @@
                     </RelativeLayout>
 
                     <TextView
+                        android:id="@+id/article_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="108篇"
                         android:textColor="@color/color_666666"
                         android:textSize="12sp" />
                 </LinearLayout>
@@ -383,10 +373,10 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="1985年9月19日出生于韩国大田广域市，韩国演员、主持人。2008年，参演古装电影《霜花店》，正式出道。2009年，担任音乐节目《音乐银行》主持人；同年，成为艺能节目《Running man》的固定嘉宾。2010年，在古装剧《成均馆绯闻》中饰演具龙河一角，凭借该剧获得KBS演技大赏最佳人气奖。"
                     android:textColor="@color/color_666666"
                     android:textSize="12sp" />
 
@@ -405,10 +395,10 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/business"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="电影《霜花店》，正式出道。2009年，担任音乐节目《音乐银行》主持人；同年，成为艺能节目《Running man》的固定嘉宾。"
                     android:textColor="@color/color_666666"
                     android:textSize="12sp" />
             </LinearLayout>

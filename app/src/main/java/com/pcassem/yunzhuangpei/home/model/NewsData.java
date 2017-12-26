@@ -6,6 +6,7 @@ import com.pcassem.yunzhuangpei.entity.KnowledgeEntity;
 import com.pcassem.yunzhuangpei.entity.NewsDetailsEntity;
 import com.pcassem.yunzhuangpei.entity.NewsEntity;
 import com.pcassem.yunzhuangpei.entity.ResultListEntity;
+import com.pcassem.yunzhuangpei.entity.SearchListEntity;
 import com.pcassem.yunzhuangpei.http.HomeAPI;
 import com.pcassem.yunzhuangpei.http.RetrofitHelper;
 
@@ -51,5 +52,10 @@ public class NewsData {
     //获取知识详情
     public Observable<ResultListEntity<KnowledgeDetailsNonDocEntity>> getSearchKnowledgeDetails(int knowledgeID){
         return mHomeAPI.getSearchKnowledgeDetails(knowledgeID);
+    }
+
+    //最新获取搜索列表详情
+    public Observable<SearchListEntity> getHomeSearchList(String category, String keyword){
+        return mHomeAPI.getHomeSearchList(category,keyword);
     }
 }

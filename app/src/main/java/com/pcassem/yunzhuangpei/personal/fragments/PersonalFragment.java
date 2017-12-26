@@ -1,16 +1,20 @@
 package com.pcassem.yunzhuangpei.personal.fragments;
 
 
-import android.content.ClipData;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pcassem.yunzhuangpei.R;
+import com.pcassem.yunzhuangpei.home.activities.HomeActivity;
 import com.pcassem.yunzhuangpei.personal.activities.HelpActivity;
 import com.pcassem.yunzhuangpei.personal.activities.LoginActivity;
 import com.pcassem.yunzhuangpei.personal.activities.MyAdvisoryActivity;
@@ -22,7 +26,10 @@ import com.pcassem.yunzhuangpei.personal.activities.PersonalInformationActivity;
 import com.pcassem.yunzhuangpei.personal.activities.SystemSettingsActivity;
 import com.pcassem.yunzhuangpei.view.ItemPersonalList;
 
+
 public class PersonalFragment extends Fragment implements View.OnClickListener {
+
+    public static final String TAG = "PersonalFragment";
 
     private TextView mJumpLoginActivity;
     private TextView mJumpPersonalInfomationActivity;
@@ -46,8 +53,20 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_personal, container, false);
         initView(view);
         initTouchEvent();
-
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        String username = getActivity().getSharedPreferences("userinfo", Context.MODE_PRIVATE).getString("username","");
+        if (username != "" && username != null){
+            mJumpLoginActivity.setText(username);
+            mJumpLoginActivity.setEnabled(false);
+        }else{
+            mJumpLoginActivity.setText("未登录");
+            mJumpLoginActivity.setEnabled(true);
+        }
     }
 
     private void initView(View view) {
@@ -82,8 +101,9 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.personal_jump_personal_infomation_activity:
-                Intent intent1 = new Intent(getActivity(), PersonalInformationActivity.class);
-                startActivity(intent1);
+//                Intent intent1 = new Intent(getActivity(), PersonalInformationActivity.class);
+//                startActivity(intent1);
+                Toast.makeText(getActivity(), "正在开发", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.personal_jump_my_project_activity:
                 Intent intent2 = new Intent(getActivity(), MyProjectActivity.class);

@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@color/color_ffffff"
+    android:orientation="vertical"
+    tools:context=".personal.activities.LoginActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,10 +22,11 @@
             android:src="@drawable/icon_back_btn" />
 
         <TextView
+            android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="注册"
+            android:text="登录"
             android:textColor="@color/color_13386d"
             android:textSize="16sp" />
     </LinearLayout>

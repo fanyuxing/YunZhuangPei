@@ -44,14 +44,16 @@ public class KnowledgeActivity extends AppCompatActivity implements View.OnClick
     private ImageView selectImageView;
     private LinearLayout selectBuilding;
     private LinearLayout selectTunnel;
+    private TextView mTitle;
 
     //分类填充数据
     private JSONObject selectedObject;
     private JSONObject leftKnowledgeObject;
     private JSONObject rightKnowledgeObject;
 
+    String titleList[] = new String[]{"工艺流程","问题解答","规范政策"};
     String knowledgeList[][] = new String[][]{new String[]{"A2", "A1"}, new String[]{"B1", "B2"}, new String[]{"C1", "C2"}};
-    String knowledgeTitle[][] = new String[][]{new String[]{"施工指南", "模版资料"}, new String[]{"常见问题", "分项工程"}, new String[]{"标准规范", "政策文件"}};
+    String knowledgeTitle[][] = new String[][]{new String[]{"施工指南", "模版资料"}, new String[]{"常见问题", "施工问题"}, new String[]{"标准规范", "政策文件"}};
     Boolean isThreeLayers[][] = new Boolean[][]{new Boolean[]{true, true}, new Boolean[]{false, true}, new Boolean[]{false, false}};
     String leftFirstTitleList[];
     String leftSecondTitleList[][];
@@ -100,9 +102,10 @@ public class KnowledgeActivity extends AppCompatActivity implements View.OnClick
         initView();
         initTouchEvent();
         initData(selectedId);
+        mTitle.setText(titleList[selectedId]);
         mInflater = LayoutInflater.from(this);
         animationUtil = AnimationUtil.getInstance(this);
-        animationUtil.setHeight(66);
+        animationUtil.setHeight(81);
 
         selectFirstListAdapter = new SelectFirstListAdapter(KnowledgeActivity.this, leftFirstTitleList);
         selectFirstList.setAdapter(selectFirstListAdapter);
@@ -149,6 +152,7 @@ public class KnowledgeActivity extends AppCompatActivity implements View.OnClick
 
     //初始化控件
     private void initView() {
+        mTitle = (TextView) findViewById(R.id.title);
         tv_item_one = (TextView) findViewById(R.id.tv_item_one);
         tv_item_two = (TextView) findViewById(R.id.tv_item_two);
         tv_one_underline = (TextView) findViewById(R.id.tv_one_underline);

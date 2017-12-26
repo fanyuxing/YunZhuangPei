@@ -42,13 +42,15 @@
                     android:paddingRight="14dp"
                     android:textColor="@color/color_cccccc"
                     android:textCursorDrawable="@null"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:enabled="false"/>
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_marginTop="5dp"
-                    android:src="@drawable/pic_advisory_show" />
+                    android:src="@drawable/pic_advisory_show"
+                    android:scaleType="fitXY"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -242,8 +244,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp">
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="14dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -252,7 +254,7 @@
                     android:layout_marginBottom="6dp"
                     android:text="推荐专家"
                     android:textColor="@color/color_13386d"
-                    android:textSize="14sp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     android:layout_width="wrap_content"

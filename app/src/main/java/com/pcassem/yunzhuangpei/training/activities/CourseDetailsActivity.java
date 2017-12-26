@@ -3,7 +3,6 @@ package com.pcassem.yunzhuangpei.training.activities;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.ButtonBarLayout;
 import android.text.Html;
 import android.view.View;
 import android.webkit.WebView;
@@ -20,9 +19,7 @@ import com.pcassem.yunzhuangpei.training.fragments.SignUpDialogFragment;
 import com.pcassem.yunzhuangpei.training.presenter.CourseDetailsPresenter;
 import com.pcassem.yunzhuangpei.training.view.CourseDetailsView;
 import com.pcassem.yunzhuangpei.utils.HtmlFormatUtil;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import com.pcassem.yunzhuangpei.utils.DateUtil;
 
 public class CourseDetailsActivity extends AppCompatActivity implements View.OnClickListener, CourseDetailsView {
 
@@ -37,6 +34,7 @@ public class CourseDetailsActivity extends AppCompatActivity implements View.OnC
     private TextView courseTotalCount;
     private WebView courseContent;
     private Button sourseSignStatus;
+    private int signStatus = 1;
 
     private CourseDetailsEntity courseDetails;
     private CourseDetailsPresenter courseDetailsPresenter;
@@ -78,7 +76,9 @@ public class CourseDetailsActivity extends AppCompatActivity implements View.OnC
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.course_sign_status:
-                SignUpDialogFragment.newInstance().show(getSupportFragmentManager(), "dialog");
+                if (signStatus == 1){
+                    SignUpDialogFragment.newInstance().show(getSupportFragmentManager(), "dialog");
+                }
                 break;
         }
     }
@@ -90,13 +90,22 @@ public class CourseDetailsActivity extends AppCompatActivity implements View.OnC
         String iconUrl = courseDetails.getIcon();
         courseTitle.setText(courseDetails.getTitle());
         courseIcon.setImageURI(Uri.parse(iconUrl));
-        courseDate.setText("培训时间：" + formatDate(courseDetails.getDate()));
+        courseDate.setText("培训时间：" + DateUtil.formatDate(courseDetails.getDate()));
         courseAddress.setText("培训地点：" + courseDetails.getAddress());
         courseSponsor.setText("举办方：" + courseDetails.getSponsor());
         courseFee.setText("培训费：" + courseDetails.getFee() + "元/每人");
         String countStr = "限<font color='#ff0000'>" + courseDetails.getTotalCount() + "</font>人，" + "<font color='#ff0000'>" + courseDetails.getSignCount()+ "</font>人已报名";
         courseTotalCount.setText(Html.fromHtml(countStr));
         courseContent.loadDataWithBaseURL(null, HtmlFormatUtil.getNewContent(courseDetails.getContent()), "text/html", "utf-8", null);
+
+        signStatus = courseDetails.getSignStatus();
+        if (signStatus == 2){
+            sourseSignStatus.setBackground(getResources().getDrawable(R.drawable.submit_non_style));
+            sourseSignStatus.setText("已报名");
+        }else if (signStatus == 3){
+            sourseSignStatus.setBackground(getResources().getDrawable(R.drawable.submit_non_style));
+            sourseSignStatus.setText("无法报名");
+        }
     }
 
     @Override
@@ -104,10 +113,4 @@ public class CourseDetailsActivity extends AppCompatActivity implements View.OnC
         Toast.makeText(this, "网络出错", Toast.LENGTH_SHORT).show();
     }
 
-    //时间戳转换
-    public String formatDate(long timeStamp) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日");
-        String sd = sdf.format(new Date(Long.parseLong(String.valueOf(timeStamp))));
-        return sd;
-    }
 }

@@ -89,6 +89,7 @@ public class AnimationUtil {
         }
     }
 
+
     public void animateOpen(View v) {
         v.setVisibility(View.VISIBLE);
         ValueAnimator animator = createDropAnimator(v, 0, getMeHeight());

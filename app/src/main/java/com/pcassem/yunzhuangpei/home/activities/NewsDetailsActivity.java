@@ -20,6 +20,7 @@ import com.pcassem.yunzhuangpei.entity.NewsDetailsEntity;
 import com.pcassem.yunzhuangpei.entity.ResultListEntity;
 import com.pcassem.yunzhuangpei.home.presenter.NewsDetailsPresenter;
 import com.pcassem.yunzhuangpei.home.view.NewsDetailsView;
+import com.pcassem.yunzhuangpei.utils.DateUtil;
 import com.pcassem.yunzhuangpei.utils.HtmlFormatUtil;
 import com.pcassem.yunzhuangpei.view.MJavascriptInterface;
 import com.pcassem.yunzhuangpei.view.MyWebViewClient;
@@ -38,6 +39,8 @@ public class NewsDetailsActivity extends AppCompatActivity implements View.OnCli
     private EditText mCommentContent;
     private TextView mCommentSend;
     private LinearLayout mJumpCommentActivity;
+    private LinearLayout mLike;
+    private LinearLayout mCollection;
 
     private RelativeLayout mLayoutCommentMenu;
     private RelativeLayout mlayoutCommentSay;
@@ -85,6 +88,8 @@ public class NewsDetailsActivity extends AppCompatActivity implements View.OnCli
         mCommentContent = (EditText) findViewById(R.id.comment_content);
         mCommentSend = (TextView) findViewById(R.id.comment_send);
         mJumpCommentActivity = (LinearLayout) findViewById(R.id.jump_comment);
+        mLike = (LinearLayout) findViewById(R.id.like);
+        mCollection = (LinearLayout) findViewById(R.id.collection);
         mLayoutCommentMenu = (RelativeLayout) findViewById(R.id.layout_comment_menu);
         mlayoutCommentSay = (RelativeLayout) findViewById(R.id.layout_comment_say);
 
@@ -103,6 +108,8 @@ public class NewsDetailsActivity extends AppCompatActivity implements View.OnCli
         mCommentFrame.setOnClickListener(this);
         mCommentSend.setOnClickListener(this);
         mJumpCommentActivity.setOnClickListener(this);
+        mLike.setOnClickListener(this);
+        mCollection.setOnClickListener(this);
     }
 
     @Override
@@ -112,22 +119,21 @@ public class NewsDetailsActivity extends AppCompatActivity implements View.OnCli
                 onBackPressed();
                 break;
             case R.id.comment_frame:
-                mLayoutCommentMenu.setVisibility(View.GONE);
-                mlayoutCommentSay.setVisibility(View.VISIBLE);
+//                mLayoutCommentMenu.setVisibility(View.GONE);
+//                mlayoutCommentSay.setVisibility(View.VISIBLE);
+                Toast.makeText(NewsDetailsActivity.this, "正在开发", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.comment_send:
                 sendComment();
                 break;
             case R.id.jump_comment:
-                if (newsID == -1) {
-                    Toast.makeText(this, "暂未开发", Toast.LENGTH_SHORT).show();
-                } else {
-                    Intent intent = new Intent(NewsDetailsActivity.this, CommentActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putString("newsID", newsID + "");
-                    intent.putExtras(bundle);
-                    startActivity(intent);
-                }
+                Toast.makeText(NewsDetailsActivity.this, "正在开发", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.like:
+                Toast.makeText(NewsDetailsActivity.this, "正在开发", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.collection:
+                Toast.makeText(NewsDetailsActivity.this, "正在开发", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
@@ -168,7 +174,7 @@ public class NewsDetailsActivity extends AppCompatActivity implements View.OnCli
     public void onSuccess(ResultListEntity<NewsDetailsEntity> newsListEntity) {
         mNewsDetailsData = newsListEntity.getResult().get(0);
         mTitle.setText(mNewsDetailsData.getTitle() + "");
-        mDate.setText(formatDate(mNewsDetailsData.getDate()));
+        mDate.setText(DateUtil.getStandardDate(mNewsDetailsData.getDate()));
         mReadCount.setText("阅读" + mNewsDetailsData.getReadCount() + "次");
         mLikeCount.setText("赞" + mNewsDetailsData.getLikeCount());
         mCommentCount.setText("评论" + mNewsDetailsData.getCommentCount());
@@ -185,10 +191,4 @@ public class NewsDetailsActivity extends AppCompatActivity implements View.OnCli
         Toast.makeText(this, "网络出错", Toast.LENGTH_SHORT).show();
     }
 
-    //时间戳转换
-    public String formatDate(long timeStamp) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日");
-        String sd = sdf.format(new Date(Long.parseLong(String.valueOf(timeStamp))));
-        return sd;
-    }
 }

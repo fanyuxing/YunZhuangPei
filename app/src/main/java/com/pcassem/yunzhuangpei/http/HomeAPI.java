@@ -6,6 +6,7 @@ import com.pcassem.yunzhuangpei.entity.KnowledgeEntity;
 import com.pcassem.yunzhuangpei.entity.NewsDetailsEntity;
 import com.pcassem.yunzhuangpei.entity.NewsEntity;
 import com.pcassem.yunzhuangpei.entity.ResultListEntity;
+import com.pcassem.yunzhuangpei.entity.SearchListEntity;
 
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -14,7 +15,7 @@ import rx.Observable;
 public interface HomeAPI {
 
     //最新资讯
-    @GET("app/index/latestNewsList")
+    @GET("/app/index/latestNewsList")
     Observable<ResultListEntity<NewsEntity>> getLatestNewsList();
 
     //全部资讯
@@ -40,5 +41,9 @@ public interface HomeAPI {
     //搜索知识列表详情
     @GET("/app/index/search/info")
     Observable<ResultListEntity<KnowledgeDetailsNonDocEntity>> getSearchKnowledgeDetails(@Query("knowledgeID") int knowledgeID);
+
+    //最新知识搜索列表接口
+    @GET("/app/index/search/audio")
+    Observable<SearchListEntity> getHomeSearchList(@Query("repository") String repository, @Query("keyword") String keyword);
 
 }

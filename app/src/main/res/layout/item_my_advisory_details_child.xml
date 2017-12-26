@@ -159,7 +159,7 @@
                 android:text="评 价"
                 android:textSize="14sp"
                 android:textColor="@color/color_ffffff"
-                android:background="@drawable/advisory_submit_style"
+                android:background="@drawable/submit_style"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"/>
         </RelativeLayout>

@@ -36,15 +36,11 @@ public class KnowledgeFragment extends Fragment implements KnowledgeView, Knowle
     private RecyclerView.LayoutManager mLayoutManager;
     private List<KnowledgeEntity> mTrainingData;
     private KnowledgePresenter trainingPresenter;
-    private SearchKnowledgePresenter searchKnowledgePresenter;
 
     public static KnowledgeFragment newInstance() {
-
         KnowledgeFragment knowledgeFragment = new KnowledgeFragment();
         return knowledgeFragment;
     }
-
-    private int module;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,18 +63,6 @@ public class KnowledgeFragment extends Fragment implements KnowledgeView, Knowle
             trainingPresenter.onCreate();
         }
         trainingPresenter.getKnowledgeList(repository, category, firstLevel, secondLevel, thirdLevel);
-        Log.d(TAG, "updateKnowledge: " + repository + category + firstLevel + secondLevel + thirdLevel);
-        module = 2;
-    }
-
-    public void updateSearchKnowledge(String repository, String keyword){
-        if (searchKnowledgePresenter == null){
-            searchKnowledgePresenter = new SearchKnowledgePresenter(this);
-            searchKnowledgePresenter.onCreate();
-        }
-        searchKnowledgePresenter.getSearchKnowledgeList(repository, keyword);
-        Log.d(TAG, "updateSearchKnowledge: " + repository + keyword);
-        module = 3;
     }
 
     private void initView(View view){
@@ -99,7 +83,7 @@ public class KnowledgeFragment extends Fragment implements KnowledgeView, Knowle
             Intent intent = new Intent(getActivity(), KnowledgeDetailsActivity.class);
             Bundle bundle = new Bundle();
             bundle.putInt("knowledgeID", pos);
-            bundle.putInt("module",module);
+            bundle.putInt("module",2);
             intent.putExtras(bundle);
             startActivity(intent);
         }
